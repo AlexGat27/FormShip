@@ -1,0 +1,26 @@
+{
+  "name": "ship-system",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"npm run start --prefix form-client\" \"npm run start --prefix form-backend\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexGat27/FormShip.git"
+  },
+  "keywords": [
+    "ship"
+  ],
+  "author": "alex",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlexGat27/FormShip/issues"
+  },
+  "homepage": "https://github.com/AlexGat27/FormShip#readme",
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
