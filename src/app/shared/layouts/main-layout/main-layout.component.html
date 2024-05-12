@@ -1,0 +1,61 @@
+<div class="container-fluid">
+    <div class="row flex-nowrap">
+        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <span class="fs-4 d-none d-sm-inline">Меню</span>
+                </a>
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                    <li class="nav-item">
+                        <a routerLink="" class="nav-link align-middle px-0">
+                            <i class="fs-4 bi-house"></i> <span class="ms-2 d-none d-sm-inline fs-5">Home</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link px-0 align-middle" (click)="toggleShipSubMenu()">
+                            <i class="fs-4 bi bi-input-cursor"></i> <span class="ms-2 d-none d-sm-inline fs-5">Формы моделей</span>
+                        </a>
+                        <ul class="ps-2 collapse" [ngClass]="{ 'show': isShipSubmenuOpen }" id="submenu1">
+                            <li class="w-100"><a routerLink="/shipform/ship" class="nav-link px-0"> 
+                                <i class="fs-5 me-2 bi bi-1-circle"></i><span class="d-none d-sm-inline">Корабль</span>
+                            </a></li>
+                            <li class="w-100"><a routerLink="/shipform/ship-system" class="nav-link px-0"> 
+                                <i class="fs-5 me-2 bi bi-2-circle"></i><span class="d-none d-sm-inline">Система корабля</span>
+                            </a></li>
+                            <li class="w-100"><a routerLink="/shipform/equipment" class="nav-link px-0"> 
+                                <i class="fs-5 me-2 bi bi-3-circle"></i><span class="d-none d-sm-inline">Оборудование</span>
+                            </a></li>
+                            <li class="w-100"><a routerLink="/shipform/danger" class="nav-link px-0"> 
+                                <i class="fs-5 me-2 bi bi-4-circle"></i><span class="d-none d-sm-inline">Угрозы</span>
+                            </a></li>
+                            <li class="w-100"><a routerLink="/shipform/security-indicator" class="nav-link px-0"> 
+                                <i class="fs-5 me-2 bi bi-5-circle"></i><span class="d-none d-sm-inline">Показатели защищенности</span>
+                            </a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="nav-link px-0 align-middle" (click)="toggleAssociationSubMenu()">
+                            <i class="fs-4 bi bi-arrows-angle-contract"></i> <span class="ms-2 d-none d-sm-inline fs-5">Ассоциации</span>
+                        </a>
+                        <ul class="ps-2 collapse" [ngClass]="{ 'show': isAssociationSubmenuOpen }" id="submenu2">
+                            <li class="w-100"><a routerLink="/shipform/sysship-association" class="nav-link px-0"> 
+                                <i class="fs-5 me-2 bi bi-1-circle"></i><span class="d-none d-sm-inline">Корабль и система</span>
+                            </a></li>
+                            <li class="w-100"><a routerLink="/shipform/securitysys-association" class="nav-link px-0"> 
+                                <i class="fs-5 me-2 bi bi-2-circle"></i><span class="d-none d-sm-inline">Показатель и система</span>
+                            </a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi bi-display"></i> <span class="ms-2 d-none d-sm-inline fs-5">Модели кораблей</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="content col py-3">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
