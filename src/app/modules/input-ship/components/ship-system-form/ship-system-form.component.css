@@ -1,0 +1,16 @@
+.model-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+.model-table th, .model-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    word-wrap: break-word;
+  }
+  
+.model-table th {
+    background-color: #f2f2f2;
+    color: #333;
+  }

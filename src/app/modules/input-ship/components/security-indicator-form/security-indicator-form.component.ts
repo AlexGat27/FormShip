@@ -13,7 +13,7 @@ export class SecurityIndicatorFormComponent {
   form: FormGroup;
   aSub: Subscription;
   @Input() responseError: boolean;
-  modelTitles: string[];
+  models: string[];
   constructor(private shipModelService: ShipmodelService, private snackBar: MatSnackBar){}
 
   ngOnInit(): void {
@@ -23,7 +23,7 @@ export class SecurityIndicatorFormComponent {
       ship_system: new FormControl(null, [Validators.required]),
     })
     this.shipModelService.GetDataFromServer("api/v1/getModel/security-indicators").subscribe(data =>{
-      this.modelTitles = data;
+      this.models = data;
     })
     this.responseError = false;
   }
@@ -40,7 +40,7 @@ export class SecurityIndicatorFormComponent {
         this.snackBar.open('Модель создана успешно', 'OK', {
           duration: 5000 // Длительность отображения всплывающего окна в миллисекундах
         });
-        this.modelTitles.push(response);
+        this.models.push(response);
         this.form.enable();
         this.form.reset();
       },

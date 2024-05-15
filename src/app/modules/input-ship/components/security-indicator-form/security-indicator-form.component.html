@@ -15,7 +15,7 @@
     <div class="my-4">
       <h2>Существующие показатели защищенности</h2>
       <div class="model-blocks">
-          <div *ngFor="let title of modelTitles" class="model-block">{{ title }}</div>
+        <div *ngFor="let model of models" class="model-block">{{ model['title'] }}</div>
       </div>
     </div>
 </div>

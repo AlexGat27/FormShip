@@ -12,7 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class EquipmentFormComponent {
   form: FormGroup;
   aSub: Subscription;
-  modelTitles: string[];
+  models: string[];
   @Input() responseError: boolean;
   constructor(private shipModelService: ShipmodelService, private snackBar: MatSnackBar){}
 
@@ -24,7 +24,7 @@ export class EquipmentFormComponent {
       ship_system: new FormControl(null, [Validators.required])
     })
     this.shipModelService.GetDataFromServer("api/v1/getModel/equipments").subscribe(data =>{
-      this.modelTitles = data;
+      this.models = data;
     })
     this.responseError = false;
   }
@@ -41,7 +41,7 @@ export class EquipmentFormComponent {
         this.snackBar.open('Модель создана успешно', 'OK', {
           duration: 5000 // Длительность отображения всплывающего окна в миллисекундах
         });
-        this.modelTitles.push(response);
+        this.models.push(response);
         this.form.enable();
         this.form.reset();
       },
