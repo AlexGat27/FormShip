@@ -1,29 +1,36 @@
-import { Component, Input } from '@angular/core';
-import { ShipmodelService } from '../../services/shipmodel.service';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { ShipmodelService } from '../../services/shipmodel.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-security-indicator-form',
-  templateUrl: './security-indicator-form.component.html',
-  styleUrls: ['./security-indicator-form.component.css', '../../input-style.css']
+  selector: 'app-sysequipment-association',
+  templateUrl: './sysequipment-association.component.html',
+  styleUrls: ['./sysequipment-association.component.css', '../../input-style.css']
 })
-export class SecurityIndicatorFormComponent {
+export class SysequipmentAssociationComponent {
   form: FormGroup;
   aSub: Subscription;
-  @Input() responseError: boolean;
-  modelTitles: string[];
+  responseError: boolean;
+  equipmentTitles: string[];
+  shipSystemTitles: string[];
+  associations: string[];
   constructor(private shipModelService: ShipmodelService, private snackBar: MatSnackBar){}
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      title: new FormControl(null, [Validators.required]),
-      description: new FormControl(null, [Validators.required]),
+      equipment: new FormControl(null, [Validators.required]),
       ship_system: new FormControl(null, [Validators.required]),
     })
-    this.shipModelService.GetDataFromServer("api/v1/getModel/security-indicators").subscribe(data =>{
-      this.modelTitles = data;
+    this.shipModelService.GetDataFromServer("api/v1/getModel/equipments").subscribe(data =>{
+      this.equipmentTitles = data;
+      this.shipModelService.GetDataFromServer("api/v1/getModel/ship-systems").subscribe(data =>{
+        this.shipSystemTitles = data;
+        this.shipModelService.GetDataFromServer("api/v1/getAssociation/equipment-systems").subscribe(data =>{
+          this.associations = data;
+        })
+      })
     })
     this.responseError = false;
   }
@@ -35,12 +42,12 @@ export class SecurityIndicatorFormComponent {
 
   OnSubmit(){
     this.form.disable();
-    this.aSub = this.shipModelService.SendData2Server( "api/v1/create/security-indicator", this.form.value).subscribe(
+    this.aSub = this.shipModelService.SendData2Server( "api/v1/create/system-equipment-association", this.form.value).subscribe(
       (response) => {
         this.snackBar.open('Модель создана успешно', 'OK', {
           duration: 5000 // Длительность отображения всплывающего окна в миллисекундах
         });
-        this.modelTitles.push(response);
+        this.associations.push(response)
         this.form.enable();
         this.form.reset();
       },

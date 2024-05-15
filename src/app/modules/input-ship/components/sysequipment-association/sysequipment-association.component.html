@@ -1,12 +1,12 @@
-<div class="ship-system-form">
-    <h1 class="display-5 mb-5">Ассоциация корабля и его системы</h1>
+<div class="security-sys-form">
+    <h1 class="display-5 mb-5">Ассоциация системы корабля и оборудования</h1>
     <form [formGroup]="form" (ngSubmit)="OnSubmit()">
         <div class="row">
             <div class="col">
                 <div class="mb-3">
-                    <label for="selectShip" class="form-label">Выберите корабль</label>
-                    <select class="form-select" id="selectShip" formControlName="ship">
-                        <option *ngFor="let title of shipTitles" [value]="title">{{ title }}</option>
+                    <label for="selectEquipment" class="form-label">Выберите оборудование</label>
+                    <select class="form-select" id="selectEquipment" formControlName="equipment">
+                        <option *ngFor="let title of equipmentTitles" [value]="title">{{ title }}</option>
                     </select>
                 </div>
             </div>

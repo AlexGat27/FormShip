@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { RouterModule, Routes } from '@angular/router';
 import { ShipFormComponent } from './components/ship-form/ship-form.component';
@@ -11,15 +13,21 @@ import { SysshipAssociationFormComponent } from './components/sysship-associatio
 import { SecuritysysAssociationFormComponent } from './components/securitysys-association-form/securitysys-association-form.component';
 import { ProtectionFormComponent } from './components/protection-form/protection-form.component';
 import { VulnerabilityFormComponent } from './components/vulnerability-form/vulnerability-form.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SysequipmentAssociationComponent } from './components/sysequipment-association/sysequipment-association.component';
 
 const routes: Routes = [
   {path: "ship", component: ShipFormComponent},
   {path: "ship-system", component: ShipSystemFormComponent},
   {path: "danger", component: DangerFormComponent},
   {path: "equipment", component: EquipmentFormComponent},
+  {path: "protection", component: ProtectionFormComponent},
+  {path: "vulnerability", component: VulnerabilityFormComponent},
   {path: "security-indicator", component: SecurityIndicatorFormComponent},
   {path: "sysship-association", component: SysshipAssociationFormComponent},
   {path: "securitysys-association", component: SecuritysysAssociationFormComponent},
+  {path: "sysequipment-association", component: SysequipmentAssociationComponent},
 ];
 
 @NgModule({
@@ -33,9 +41,13 @@ const routes: Routes = [
     SecuritysysAssociationFormComponent,
     ProtectionFormComponent,
     VulnerabilityFormComponent,
+    SysequipmentAssociationComponent,
   ],
   imports: [
     CommonModule,
+    HttpClientModule,
+    FormsModule, ReactiveFormsModule,
+    MatSnackBarModule,
     RouterModule.forChild(routes)
   ]
 })
