@@ -6,3 +6,10 @@
     padding: 5%;
 }
 
+a{
+    cursor: pointer;
+}
+
+.navigation .content{
+    overflow-y: scroll;
+}

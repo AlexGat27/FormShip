@@ -1,15 +1,65 @@
-.model-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-.model-table th, .model-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-  }
-  
-.model-table th {
-    background-color: #f2f2f2;
-    color: #333;
-  }
+.association-list {
+  margin-top: 20px;
+}
+
+.associations-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.association {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.model-blocks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.model-block {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  text-align: center;
+  cursor: pointer;
+}
+
+.description-screen {
+  position: absolute;
+  width: 70%;
+  height: 60%;
+  top: 20%;
+  left: 15%;
+  background-color: rgba(0, 28, 53, 0.9);
+  border-radius: 20px;
+  color: white;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.description-screen h2 {
+  font-size: 24px;
+  margin-bottom: 5%;;
+}
+
+.description-screen p {
+  font-size: 18px;
+}
+
+.description-screen button {
+  position: absolute;
+  bottom: 20px; /* регулируйте это значение, чтобы изменить вертикальное расположение кнопки */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #fff;
+  color: #000;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}

@@ -3,6 +3,7 @@ import { ShipmodelService } from '../../services/shipmodel.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Model } from '../../../../core/interfaces/models.interface';
 
 @Component({
   selector: 'app-protection-form',
@@ -12,7 +13,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class ProtectionFormComponent {
   form: FormGroup;
   aSub: Subscription;
-  models: string[];
+  models: Model[];
+  selectedModel: Model;
   equipmentTitles: string[];
   @Input() responseError: boolean;
   constructor(private shipModelService: ShipmodelService, private snackBar: MatSnackBar){}
@@ -26,7 +28,7 @@ export class ProtectionFormComponent {
     this.shipModelService.GetDataFromServer("api/v1/getModel/protections").subscribe(data =>{
       this.models = data;
       this.shipModelService.GetDataFromServer("api/v1/getModel/equipments").subscribe(data =>{
-        this.equipmentTitles = data;
+        this.equipmentTitles = data.map(row => row.title);
       })
     })
     this.responseError = false;
@@ -44,7 +46,7 @@ export class ProtectionFormComponent {
         this.snackBar.open('Модель создана успешно', 'OK', {
           duration: 5000 // Длительность отображения всплывающего окна в миллисекундах
         });
-        this.models.push(response);
+        this.models.push(this.form.value);
         this.form.enable();
         this.form.reset();
       },
@@ -56,5 +58,12 @@ export class ProtectionFormComponent {
         this.form.enable();
       }
     );
+  }
+  openFullScreen(model: Model) {
+    this.selectedModel = model;
+  }
+
+  closeFullScreen() {
+    this.selectedModel = null;
   }
 } 

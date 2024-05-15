@@ -3,6 +3,7 @@ import { ShipmodelService } from '../../services/shipmodel.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Model, ModelWithType } from '../../../../core/interfaces/models.interface';
 
 @Component({
   selector: 'app-security-indicator-form',
@@ -13,7 +14,8 @@ export class SecurityIndicatorFormComponent {
   form: FormGroup;
   aSub: Subscription;
   @Input() responseError: boolean;
-  models: string[];
+  models: Model[];
+  selectedModel: Model;
   constructor(private shipModelService: ShipmodelService, private snackBar: MatSnackBar){}
 
   ngOnInit(): void {
@@ -40,7 +42,7 @@ export class SecurityIndicatorFormComponent {
         this.snackBar.open('Модель создана успешно', 'OK', {
           duration: 5000 // Длительность отображения всплывающего окна в миллисекундах
         });
-        this.models.push(response);
+        this.models.push(this.form.value);
         this.form.enable();
         this.form.reset();
       },
@@ -52,5 +54,12 @@ export class SecurityIndicatorFormComponent {
         this.form.enable();
       }
     );
+  }
+  openFullScreen(model: Model) {
+    this.selectedModel = model;
+  }
+
+  closeFullScreen() {
+    this.selectedModel = null;
   }
 }

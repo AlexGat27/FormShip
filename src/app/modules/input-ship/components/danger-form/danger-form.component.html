@@ -21,7 +21,18 @@
     <div class="my-4">
       <h2>Существующие угрозы</h2>
       <div class="model-blocks">
-          <div *ngFor="let model of models" class="model-block">{{ model['title'] }}</div>
+          <div *ngFor="let model of models" class="model-block" (click)="openFullScreen(model)">{{ model.title }}</div>
       </div>
+    </div>
+    <div *ngIf="selectedModel" class="description-screen">
+      <div class="row">
+        <div class="col-3"><h2>Название:</h2></div>
+        <div class="col-9"><h2>{{ selectedModel.title }}</h2></div>
+      </div>
+      <div class="row">
+        <div class="col-3"><p>Описание:</p></div>
+        <div class="col-9"><p>{{ selectedModel.description }}</p></div>
+      </div>
+      <button (click)="closeFullScreen()">Закрыть</button>
     </div>
 </div>

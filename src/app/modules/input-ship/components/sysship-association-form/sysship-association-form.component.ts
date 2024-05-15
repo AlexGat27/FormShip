@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ShipmodelService } from '../../services/shipmodel.service';
 import { Subscription } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Association, ModelWithType } from '../../../../core/interfaces/models.interface';
 
 @Component({
   selector: 'app-sysship-association-form',
@@ -15,7 +16,8 @@ export class SysshipAssociationFormComponent {
   @Input() responseError: boolean;
   shipTitles: string[];
   shipSystemTitles: string[];
-  associations: string[];
+  associations: Association[];
+  selectedModel: ModelWithType;
   constructor(private shipModelService: ShipmodelService, private snackBar: MatSnackBar){}
 
   ngOnInit(): void {
@@ -24,9 +26,9 @@ export class SysshipAssociationFormComponent {
       ship_system: new FormControl(null, [Validators.required]),
     })
     this.shipModelService.GetDataFromServer("api/v1/getModel/ships").subscribe(data =>{
-      this.shipTitles = data;
+      this.shipTitles = data.map(row => row.title);
       this.shipModelService.GetDataFromServer("api/v1/getModel/ship-systems").subscribe(data =>{
-        this.shipSystemTitles = data;
+        this.shipSystemTitles = data.map(row => row.title);
         this.shipModelService.GetDataFromServer("api/v1/getAssociation/ship-systems").subscribe(data =>{
           this.associations = data;
         })
@@ -48,9 +50,11 @@ export class SysshipAssociationFormComponent {
           duration: 5000, // Длительность отображения всплывающего окна в миллисекундах
           panelClass: ['snack-success']
         });
-        this.associations.push(response)
-        this.form.enable();
-        this.form.reset();
+        this.shipModelService.GetDataFromServer("api/v1/getAssociation/ship-systems").subscribe(data =>{
+          this.associations = data;
+          this.form.enable();
+          this.form.reset();
+        })
       },
       error => {
         this.snackBar.open(`Ошибка создания модели: ${error.message}`, 'OK', {
@@ -61,5 +65,12 @@ export class SysshipAssociationFormComponent {
         this.form.enable();
       }
     );
+  }
+  openFullScreen(model: ModelWithType) {
+    this.selectedModel = model;
+  }
+
+  closeFullScreen() {
+    this.selectedModel = null;
   }
 }

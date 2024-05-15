@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ShipmodelService } from '../../services/shipmodel.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Model, ModelWithType } from '../../../../core/interfaces/models.interface';
 
 @Component({
   selector: 'app-ship-system-form',
@@ -12,7 +13,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class ShipSystemFormComponent {
   form: FormGroup;
   aSub: Subscription;
-  models: string[];
+  models: ModelWithType[];
+  selectedModel: ModelWithType;
   @Input() responseError: boolean;
   constructor(private shipModelService: ShipmodelService, private snackBar: MatSnackBar){}
 
@@ -40,7 +42,7 @@ export class ShipSystemFormComponent {
         this.snackBar.open('Модель создана успешно', 'OK', {
           duration: 5000 // Длительность отображения всплывающего окна в миллисекундах
         });
-        this.models.push(response);
+        this.models.push(this.form.value);
         this.form.enable();
         this.form.reset();
       },
@@ -52,5 +54,12 @@ export class ShipSystemFormComponent {
         this.form.enable();
       }
     );
+  }
+  openFullScreen(model: ModelWithType) {
+    this.selectedModel = model;
+  }
+
+  closeFullScreen() {
+    this.selectedModel = null;
   }
 }
