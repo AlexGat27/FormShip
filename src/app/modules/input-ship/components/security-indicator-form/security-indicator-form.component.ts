@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { ShipmodelService } from '../../services/shipmodel.service';
+import { ShipmodelService } from '../../../../core/services/shipmodel.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Model, ModelWithType } from '../../../../core/interfaces/models.interface';
+import { Model } from '../../../../core/interfaces/models.interface';
 
 @Component({
   selector: 'app-security-indicator-form',

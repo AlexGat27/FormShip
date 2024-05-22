@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ShipmodelService } from '../../services/shipmodel.service';
+import { ShipmodelService } from '../../../../core/services/shipmodel.service';
 import { Subscription } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Association, ModelWithType } from '../../../../core/interfaces/models.interface';
+import { Association, Model } from '../../../../core/interfaces/models.interface';
 
 @Component({
   selector: 'app-securitysys-association-form',
@@ -17,7 +17,7 @@ export class SecuritysysAssociationFormComponent {
   securityIndicatorTitles: string[];
   shipSystemTitles: string[];
   associations: Association[];
-  selectedModel: ModelWithType;
+  selectedModel: Model;
   constructor(private shipModelService: ShipmodelService, private snackBar: MatSnackBar){}
 
   ngOnInit(): void {
@@ -64,7 +64,7 @@ export class SecuritysysAssociationFormComponent {
       }
     );
   }
-  openFullScreen(model: ModelWithType) {
+  openFullScreen(model: Model) {
     this.selectedModel = model;
   }
 

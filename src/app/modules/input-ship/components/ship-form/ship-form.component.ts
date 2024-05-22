@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { ShipmodelService } from '../../services/shipmodel.service';
+import { ShipmodelService } from '../../../../core/services/shipmodel.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Model } from '../../../../core/interfaces/models.interface';
 

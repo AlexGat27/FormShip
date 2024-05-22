@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ShipmodelService } from '../../services/shipmodel.service';
+import { ShipmodelService } from '../../../../core/services/shipmodel.service';
 import { Subscription } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ModelWithType } from '../../../../core/interfaces/models.interface';
+import { Model } from '../../../../core/interfaces/models.interface';
 
 @Component({
   selector: 'app-equipment-form',
@@ -13,8 +13,8 @@ import { ModelWithType } from '../../../../core/interfaces/models.interface';
 export class EquipmentFormComponent {
   form: FormGroup;
   aSub: Subscription;
-  models: ModelWithType[];
-  selectedModel: ModelWithType;
+  models: Model[];
+  selectedModel: Model;
   @Input() responseError: boolean;
   constructor(private shipModelService: ShipmodelService, private snackBar: MatSnackBar){}
 
@@ -56,7 +56,7 @@ export class EquipmentFormComponent {
       }
     );
   }
-  openFullScreen(model: ModelWithType) {
+  openFullScreen(model: Model) {
     this.selectedModel = model;
   }
 

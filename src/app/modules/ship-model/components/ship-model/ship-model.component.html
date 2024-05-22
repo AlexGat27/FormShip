@@ -1,0 +1,105 @@
+<div class="ship-model">
+    <h1 class="display-3">Модель корабля</h1>
+    <form [formGroup]="form">
+        <div class="mb-3">
+          <label for="selectShip" class="form-label">Название корабля</label>
+          <select class="form-select" id="selectShip" formControlName="title" (change)="OnSubmit()">
+            <option *ngFor="let title of shipTitles" [value]="title">{{ title }}</option>
+          </select>
+        </div>
+    </form>
+
+    <div class="shipModelDisplay" *ngIf="shipModel">
+      <div class="my-4" *ngIf="shipModel.ship_systems">
+        <h3>Системы корабля</h3>
+        <div class="model-blocks">
+          <div *ngFor="let ship_system of shipModel.ship_systems" class="model-block" 
+          (click)="selectShipSystem(ship_system)">{{ ship_system.system_ship.title }}</div>
+        </div>
+        <div class="descriptionBlock my-3" *ngIf="selectedShipSystem">
+          <div class="row">
+            <div class="col-3"><h6 class="my-2">Описание:</h6></div>
+            <div class="col-9"><p class="my-2">{{ selectedShipSystem.system_ship.title }}</p></div>
+          </div>
+          <div class="row">
+            <div class="col-3"><h6 class="my-2">Тип:</h6></div>
+            <div class="col-9"><p class="my-2">{{ selectedShipSystem.system_ship.type }}</p></div>
+          </div>
+          <div class="row">
+            <div class="col-3"><h6 class="my-2">Категория:</h6></div>
+            <div class="col-9"><p class="my-2">{{ selectedShipSystem.system_ship.category }}</p></div>
+          </div>
+          <div class="row">
+            <div class="col-3"><h6 class="my-2">Документ:</h6></div>
+            <div class="col-9"><p class="my-2">{{ selectedShipSystem.system_ship.document }}</p></div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="my-4" *ngIf="selectedShipSystem">
+        <h3>Угрозы для системы корабля</h3>
+        <div class="model-blocks">
+          <div *ngFor="let danger of selectedShipSystem.dangers" class="model-block" 
+          (click)="openFullScreen(danger)">{{ danger.title }}</div>
+        </div>
+      </div>
+  
+      <div class="my-4" *ngIf="selectedShipSystem">
+        <h3>Показатели защищенности для системы корабля</h3>
+        <div class="model-blocks">
+          <div *ngFor="let security_indicator of selectedShipSystem.security_indicators" class="model-block" 
+          (click)="openFullScreen(security_indicator)">{{ security_indicator.title }}</div>
+        </div>
+      </div>
+  
+      <div class="my-4" *ngIf="selectedShipSystem">
+        <h3>Оборудование</h3>
+        <div class="model-blocks">
+          <div *ngFor="let equipmentModel of selectedShipSystem.equipments" class="model-block" 
+          (click)="selectEquipment(equipmentModel)">{{ equipmentModel.equipment.title }}</div>
+        </div>
+        <div class="descriptionBlock my-3" *ngIf="selectedEquipment">
+          <div class="row">
+            <div class="col-3"><h6 class="my-2">Описание:</h6></div>
+            <div class="col-9"><p class="my-2">{{ selectedEquipment.equipment.description }}</p></div>
+          </div>
+          <div class="row">
+            <div class="col-3"><h6 class="my-2">Тип:</h6></div>
+            <div class="col-9"><p class="my-2">{{ selectedEquipment.equipment.type }}</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="my-4" *ngIf="selectedEquipment">
+        <h3>Меры защищенности оборудования</h3>
+        <div class="model-blocks">
+          <div *ngFor="let protection of selectedEquipment.protections" class="model-block" 
+          (click)="openFullScreen(protection)">{{ protection.title }}</div>
+        </div>
+      </div>
+
+      <div class="my-4" *ngIf="selectedEquipment">
+        <h3>Уязвимости оборудования</h3>
+        <div class="model-blocks">
+          <div *ngFor="let vulnerabilitie of selectedEquipment.vulnerabilities" class="model-block" 
+          (click)="openFullScreen(vulnerabilitie)">{{ vulnerabilitie.title }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="selectedModel" class="description-screen">
+      <div class="row">
+        <div class="col-3"><h2 class="my-3">Название:</h2></div>
+        <div class="col-9"><h2 class="my-3">{{ selectedModel.title }}</h2></div>
+      </div>
+      <div class="row">
+        <div class="col-3"><p class="my-3">Описание:</p></div>
+        <div class="col-9"><p class="my-3">{{ selectedModel.description }}</p></div>
+      </div>
+      <div class="row" *ngIf="selectedModel.type">
+        <div class="col-3"><p class="my-3">Тип:</p></div>
+        <div class="col-9"><p class="my-3">{{ selectedModel.type }}</p></div>
+      </div>
+      <button (click)="closeFullScreen()">Закрыть</button>
+    </div>
+</div>

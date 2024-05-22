@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { ShipmodelService } from '../../services/shipmodel.service';
+import { ShipmodelService } from '../../../../core/services/shipmodel.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Model, ModelWithType } from '../../../../core/interfaces/models.interface';
+import { ShipSystemModel } from '../../../../core/interfaces/models.interface';
 
 @Component({
   selector: 'app-ship-system-form',
@@ -13,16 +13,18 @@ import { Model, ModelWithType } from '../../../../core/interfaces/models.interfa
 export class ShipSystemFormComponent {
   form: FormGroup;
   aSub: Subscription;
-  models: ModelWithType[];
-  selectedModel: ModelWithType;
+  models: ShipSystemModel[];
+  selectedModel: ShipSystemModel;
   @Input() responseError: boolean;
   constructor(private shipModelService: ShipmodelService, private snackBar: MatSnackBar){}
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      title: new FormControl(null, [Validators.required]),
-      description: new FormControl(null, [Validators.required]),
-      type: new FormControl(null, [Validators.required]),
+      title: new FormControl(null, [Validators.required, Validators.maxLength(100)]),
+      description: new FormControl(null, [Validators.required, Validators.maxLength(500)]),
+      type: new FormControl(null, [Validators.required, Validators.maxLength(100)]),
+      category: new FormControl(1, [Validators.required, Validators.min(1), Validators.max(3)]),
+      document: new FormControl(null, [Validators.required, Validators.maxLength(100)])
     })
     this.shipModelService.GetDataFromServer("api/v1/getModel/ship-systems").subscribe(data =>{
       this.models = data;
@@ -55,7 +57,7 @@ export class ShipSystemFormComponent {
       }
     );
   }
-  openFullScreen(model: ModelWithType) {
+  openFullScreen(model: ShipSystemModel) {
     this.selectedModel = model;
   }
 

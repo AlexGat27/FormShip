@@ -15,7 +15,12 @@ const routes: Routes = [
     path: "shipform", 
     component: MainLayoutComponent, 
     loadChildren: () => import('../modules/input-ship/input-ship.module').then(m => m.InputShipModule)
-  }
+  },
+  {
+    path: "shipmodel", 
+    component: MainLayoutComponent, 
+    loadChildren: () => import('../modules/ship-model/ship-model.module').then(m => m.ShipModelModule)
+  },
 ];
 
 @NgModule({

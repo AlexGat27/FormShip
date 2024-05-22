@@ -42,6 +42,9 @@
   box-sizing: border-box;
   overflow-y: auto;
 }
+.description-screen .row{
+  border-bottom: 2px solid white;
+}
 
 .description-screen h2 {
   font-size: 24px;

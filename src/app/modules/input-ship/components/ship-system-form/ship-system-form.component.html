@@ -14,6 +14,16 @@
           <label for="inputDescription" class="form-label">Тип</label>
           <input type="text" class="form-control" id="inputDescription" formControlName="type">
         </div>
+        <div class="mb-3">
+          <label for="inputDescription" class="form-label">Категория</label>
+          <select class="form-select" id="selectShipSystem" formControlName="category">
+            <option *ngFor="let id of [1, 2, 3]" [value]="id">{{ id }}</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="inputDescription" class="form-label">Документ</label>
+          <input type="text" class="form-control" id="inputDescription" formControlName="document">
+        </div>
         <button type="submit" class="btn btn-primary">Сохранить</button>
     </form>
     <div class="my-4">
@@ -24,16 +34,24 @@
     </div>
     <div *ngIf="selectedModel" class="description-screen">
       <div class="row">
-        <div class="col-3"><h2>Название:</h2></div>
-        <div class="col-9"><h2>{{ selectedModel.title }}</h2></div>
+        <div class="col-3"><h2 class="my-3">Название:</h2></div>
+        <div class="col-9"><h2 class="my-3">{{ selectedModel.title }}</h2></div>
       </div>
       <div class="row">
-        <div class="col-3"><p>Описание:</p></div>
-        <div class="col-9"><p>{{ selectedModel.description }}</p></div>
+        <div class="col-3"><p class="my-3">Описание:</p></div>
+        <div class="col-9"><p class="my-3">{{ selectedModel.description }}</p></div>
       </div>
       <div class="row">
-        <div class="col-3"><p>Тип:</p></div>
-        <div class="col-9"><p>{{ selectedModel.type }}</p></div>
+        <div class="col-3"><p class="my-3">Тип:</p></div>
+        <div class="col-9"><p class="my-3">{{ selectedModel.type }}</p></div>
+      </div>
+      <div class="row">
+        <div class="col-3"><p class="my-3">Категория:</p></div>
+        <div class="col-9"><p class="my-3">{{ selectedModel.category }}</p></div>
+      </div>
+      <div class="row">
+        <div class="col-3"><p class="my-3">Документ:</p></div>
+        <div class="col-9"><p class="my-3">{{ selectedModel.document }}</p></div>
       </div>
       <button (click)="closeFullScreen()">Закрыть</button>
     </div>
