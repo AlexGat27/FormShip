@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ShipmodelService } from '../../../../core/services/shipmodel.service';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription, tap } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Model } from '../../../../core/interfaces/models.interface';
 
@@ -25,9 +25,7 @@ export class EquipmentFormComponent {
       type: new FormControl(null, [Validators.required]),
       ship_system: new FormControl(null, [Validators.required])
     })
-    this.shipModelService.GetDataFromServer("api/v1/getModel/equipments").subscribe(data =>{
-      this.models = data;
-    })
+    this.getModels().subscribe();
     this.responseError = false;
   }
   ngOnDestroy(): void {
@@ -40,12 +38,13 @@ export class EquipmentFormComponent {
     this.form.disable();
     this.aSub = this.shipModelService.SendData2Server( "api/v1/create/equipment", this.form.value).subscribe(
       (response) => {
-        this.snackBar.open('Модель создана успешно', 'OK', {
-          duration: 5000 // Длительность отображения всплывающего окна в миллисекундах
-        });
-        this.models.push(this.form.value);
-        this.form.enable();
-        this.form.reset();
+        this.getModels().subscribe(() => {
+          this.snackBar.open('Модель создана успешно', 'OK', {
+            duration: 5000 // Длительность отображения всплывающего окна в миллисекундах
+          });
+          this.form.enable();
+          this.form.reset();
+        })
       },
       error => {
         this.snackBar.open(`Ошибка создания модели: ${error.message}`, 'OK', {
@@ -60,7 +59,14 @@ export class EquipmentFormComponent {
     this.selectedModel = model;
   }
 
-  closeFullScreen() {
-    this.selectedModel = null;
+  deleteModel(id: number) {
+    this.models = this.models.filter(model => model.id != id);
+  }
+  getModels(): Observable<any>{
+    return this.shipModelService.GetDataFromServer("api/v1/getModel/equipments").pipe(
+      tap(data =>{
+        this.models = data;
+      })
+    )
   }
 }

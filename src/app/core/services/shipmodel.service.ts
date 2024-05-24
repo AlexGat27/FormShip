@@ -15,10 +15,13 @@ export class ShipmodelService {
         'Content-Type': 'application/json'
       })
     };
-    console.log(data)
     return this.http.post(url, data, httpOptions);
   }
   GetDataFromServer(url: string): Observable<any>{
     return this.http.get(url);
+  }
+
+  DeleteModel(url: string){
+    return this.http.delete(url);
   }
 }

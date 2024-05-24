@@ -24,11 +24,17 @@
     font-size: 18px;
   }
   
-  .description-screen button {
+  .description-screen .buttons {
     position: absolute;
     bottom: 20px; /* регулируйте это значение, чтобы изменить вертикальное расположение кнопки */
     left: 50%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
     transform: translateX(-50%);
+    width: 50%;
+  }
+  .description-screen button{
     background-color: #fff;
     color: #000;
     padding: 10px 20px;

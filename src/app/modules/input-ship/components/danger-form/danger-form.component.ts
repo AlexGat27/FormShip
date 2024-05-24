@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ShipmodelService } from '../../../../core/services/shipmodel.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription, tap } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Model } from '../../../../core/interfaces/models.interface';
 
@@ -63,7 +63,16 @@ export class DangerFormComponent {
     this.selectedModel = model;
   }
 
-  closeFullScreen() {
-    this.selectedModel = null;
+  deleteModel(id: number) {
+    this.models = this.models.filter(model => model.id != id);
+  }
+  getModels(): Observable<any>{
+    return this.shipModelService.GetDataFromServer("api/v1/getModel/dangers").pipe(
+      tap(data => {
+        this.shipModelService.GetDataFromServer("api/v1/getModel/ship-systems").subscribe(data =>{
+          this.shipSystems = data.map(row => row.title);
+        })
+      })
+    )
   }
 }

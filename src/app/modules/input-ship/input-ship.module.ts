@@ -15,6 +15,7 @@ import { VulnerabilityFormComponent } from './components/vulnerability-form/vuln
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SysequipmentAssociationComponent } from './components/sysequipment-association/sysequipment-association.component';
+import { DescriptionScreenComponent } from './shared-components/description-screen/description-screen.component';
 
 const routes: Routes = [
   {path: "ship", component: ShipFormComponent},
@@ -41,6 +42,7 @@ const routes: Routes = [
     ProtectionFormComponent,
     VulnerabilityFormComponent,
     SysequipmentAssociationComponent,
+    DescriptionScreenComponent,
   ],
   imports: [
     CommonModule,

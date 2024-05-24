@@ -1,0 +1,18 @@
+<div *ngIf="selectedModel" class="description-screen">
+    <div class="row">
+      <div class="col-3"><h2 class="my-3">Название:</h2></div>
+      <div class="col-9"><h2 class="my-3">{{ selectedModel.title }}</h2></div>
+    </div>
+    <div class="row">
+      <div class="col-3"><p class="my-3">Описание:</p></div>
+      <div class="col-9"><p class="my-3">{{ selectedModel.description }}</p></div>
+    </div>
+    <div class="row" *ngIf="selectedModel.type">
+        <div class="col-3"><p class="my-3">Тип:</p></div>
+        <div class="col-9"><p class="my-3">{{ selectedModel.type }}</p></div>
+      </div>
+      <div class="buttons">
+        <button (click)="closeFullScreen()">Закрыть</button>
+        <button (click)="deleteModel()" *ngIf="tablename">Удалить модель</button>
+      </div>
+</div>
