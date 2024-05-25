@@ -21,8 +21,8 @@ export class DangerFormComponent {
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      title: new FormControl(null, [Validators.required]),
-      description: new FormControl(null, [Validators.required]),
+      title: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
+      description: new FormControl(null, [Validators.required, Validators.maxLength(150)]),
       ship_system: new FormControl(null, [Validators.required])
     })
     this.shipModelService.GetDataFromServer("api/v1/getModel/dangers").subscribe(data =>{
@@ -69,6 +69,7 @@ export class DangerFormComponent {
   getModels(): Observable<any>{
     return this.shipModelService.GetDataFromServer("api/v1/getModel/dangers").pipe(
       tap(data => {
+        this.models = data;
         this.shipModelService.GetDataFromServer("api/v1/getModel/ship-systems").subscribe(data =>{
           this.shipSystems = data.map(row => row.title);
         })

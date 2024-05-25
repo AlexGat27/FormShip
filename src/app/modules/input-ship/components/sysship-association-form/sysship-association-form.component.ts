@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ShipmodelService } from '../../../../core/services/shipmodel.service';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription, tap } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Association, Model } from '../../../../core/interfaces/models.interface';
+import { Association, Model, ShipSystemModel } from '../../../../core/interfaces/models.interface';
 
 @Component({
   selector: 'app-sysship-association-form',
@@ -17,7 +17,8 @@ export class SysshipAssociationFormComponent {
   shipTitles: string[];
   shipSystemTitles: string[];
   associations: Association[];
-  selectedModel: Model;
+  selectedShipModel: Model;
+  selectedShipSystemModel: ShipSystemModel;
   constructor(private shipModelService: ShipmodelService, private snackBar: MatSnackBar){}
 
   ngOnInit(): void {
@@ -30,6 +31,7 @@ export class SysshipAssociationFormComponent {
       this.shipModelService.GetDataFromServer("api/v1/getModel/ship-systems").subscribe(data =>{
         this.shipSystemTitles = data.map(row => row.title);
         this.shipModelService.GetDataFromServer("api/v1/getAssociation/ship-systems").subscribe(data =>{
+          console.log(data)
           this.associations = data;
         })
       })
@@ -66,11 +68,34 @@ export class SysshipAssociationFormComponent {
       }
     );
   }
-  openFullScreen(model: Model) {
-    this.selectedModel = model;
+  openFullScreen(model) {
+    if (model.category) {
+      this.selectedShipSystemModel = model;
+    } else {
+      this.selectedShipModel = model;
+    }
   }
-
-  closeFullScreen() {
-    this.selectedModel = null;
+  deleteAssociation(id: number){
+    this.shipModelService.DeleteModel(`api/v1/deleteModel?id=${id}&tablename=${'ship_and_systems'}`)
+    .subscribe(response => {
+      console.log(response);
+      this.associations = this.associations.filter(association => association.id != id);
+      this.snackBar.open('Связь успешно удалена', 'OK', {
+        duration: 3000 // Длительность отображения всплывающего окна в миллисекундах
+      });
+    }, error => {
+      let message = ''
+      switch(error.status){
+        case 404:
+          message = "Ошибка. Связь не найдена";
+          break;
+        default:
+          message = "Неизвестная ошибка сервера";
+          break;
+      }
+      this.snackBar.open(message, 'OK', {
+        duration: 3000 // Длительность отображения всплывающего окна в миллисекундах
+      });
+    })
   }
 }

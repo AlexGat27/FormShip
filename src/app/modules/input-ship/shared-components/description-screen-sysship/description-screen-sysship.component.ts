@@ -1,17 +1,17 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Model } from '../../../../core/interfaces/models.interface';
-import { ShipmodelService } from '../../../../core/services/shipmodel.service';
+import { ShipSystemModel } from '../../../../core/interfaces/models.interface';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ShipmodelService } from '../../../../core/services/shipmodel.service';
 
 @Component({
-  selector: 'app-description-screen',
-  templateUrl: './description-screen.component.html',
-  styleUrl: './description-screen.component.css'
+  selector: 'app-description-screen-sysship',
+  templateUrl: './description-screen-sysship.component.html',
+  styleUrl: './description-screen-sysship.component.css'
 })
-export class DescriptionScreenComponent {
-  @Input() selectedModel: Model | null;
+export class DescriptionScreenSysshipComponent {
+  @Input() selectedModel: ShipSystemModel | null;
   @Input() tablename: string | null;
-  @Output() selectedModelChange = new EventEmitter<Model | null>();
+  @Output() selectedModelChange = new EventEmitter<ShipSystemModel | null>();
   @Output() deletedModel = new EventEmitter<number>();
 
   constructor(private shipService: ShipmodelService, private snackBar: MatSnackBar){}
@@ -41,7 +41,7 @@ export class DescriptionScreenComponent {
           break;
         default:
           message = "Неизвестная ошибка сервера";
-          break
+          break;
       }
       this.snackBar.open(message, 'OK', {
         duration: 3000 // Длительность отображения всплывающего окна в миллисекундах

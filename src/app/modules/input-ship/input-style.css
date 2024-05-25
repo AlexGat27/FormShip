@@ -28,3 +28,12 @@
   text-align: center;
   cursor: pointer;
 }
+
+.invalid{
+  border-color: red;
+}
+
+.disabledBtn{
+  background-color: grey;
+  border-color: grey;
+}

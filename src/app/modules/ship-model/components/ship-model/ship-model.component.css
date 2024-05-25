@@ -54,3 +54,8 @@
   .descriptionBlock .row{
     border-bottom: 1px solid black;
   }
+  .descriptionBlock p{
+    overflow-y: auto; /* Добавляем возможность прокрутки по вертикали */
+    max-height: 100px; /* Указываем максимальную высоту контейнера описания */
+    overflow-wrap: break-word;
+  }

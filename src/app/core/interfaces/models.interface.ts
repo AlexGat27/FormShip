@@ -11,6 +11,7 @@ export interface ShipSystemModel extends Model{
 
 
 export interface Association{
+    id: number;
     model1: Model;
-    model2: Model;
+    model2: ShipSystemModel;
 }

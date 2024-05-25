@@ -1,3 +1,7 @@
+.main-layout{
+    overflow-x: auto;
+}
+
 #submenu1, #submenu2{
     list-style-type: none;
 }

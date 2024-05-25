@@ -3,56 +3,38 @@
     <form [formGroup]="form" (ngSubmit)="OnSubmit()">
         <div class="mb-3">
           <label for="inputTitle" class="form-label">Название</label>
-          <input type="text" class="form-control" id="inputTitle" aria-describedby="titleHelp" formControlName="title">
+          <input type="text" class="form-control" id="inputTitle" aria-describedby="titleHelp" formControlName="title"
+          [ngClass]="{'invalid': form.get('title').invalid && form.get('title').touched}">
           <div id="titleHelp" class="form-text">Название системы корабля, которой нет в списке сохраненных</div>
         </div>
         <div class="mb-3">
           <label for="inputDescription" class="form-label">Описание</label>
-          <input type="text" class="form-control" id="inputDescription" formControlName="description">
+          <input type="text" class="form-control" id="inputDescription" formControlName="description"
+          [ngClass]="{'invalid': form.get('description').invalid && form.get('description').touched}">
         </div>
         <div class="mb-3">
           <label for="inputDescription" class="form-label">Тип</label>
-          <input type="text" class="form-control" id="inputDescription" formControlName="type">
+          <input type="text" class="form-control" id="inputDescription" formControlName="type"
+          [ngClass]="{'invalid': form.get('type').invalid && form.get('type').touched}">
         </div>
         <div class="mb-3">
           <label for="inputDescription" class="form-label">Категория</label>
-          <select class="form-select" id="selectShipSystem" formControlName="category">
+          <select class="form-select" id="selectShipSystem" formControlName="category"
+          [ngClass]="{'invalid': form.get('category').invalid && form.get('category').touched}">
             <option *ngFor="let id of [1, 2, 3]" [value]="id">{{ id }}</option>
           </select>
         </div>
         <div class="mb-3">
           <label for="inputDescription" class="form-label">Документ</label>
-          <input type="text" class="form-control" id="inputDescription" formControlName="document">
+          <input type="text" class="form-control" id="inputDescription" formControlName="document"
+          [ngClass]="{'invalid': form.get('document').invalid && form.get('document').touched}">
         </div>
-        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid || form.disabled">Сохранить</button>
     </form>
     <div class="my-4">
       <h2>Существующие системы</h2>
       <div class="model-blocks">
         <div *ngFor="let model of models" class="model-block" (click)="openFullScreen(model)">{{ model.title }}</div>
       </div>
-    </div>
-    <div *ngIf="selectedModel" class="description-screen">
-      <div class="row">
-        <div class="col-3"><h2 class="my-3">Название:</h2></div>
-        <div class="col-9"><h2 class="my-3">{{ selectedModel.title }}</h2></div>
-      </div>
-      <div class="row">
-        <div class="col-3"><p class="my-3">Описание:</p></div>
-        <div class="col-9"><p class="my-3">{{ selectedModel.description }}</p></div>
-      </div>
-      <div class="row">
-        <div class="col-3"><p class="my-3">Тип:</p></div>
-        <div class="col-9"><p class="my-3">{{ selectedModel.type }}</p></div>
-      </div>
-      <div class="row">
-        <div class="col-3"><p class="my-3">Категория:</p></div>
-        <div class="col-9"><p class="my-3">{{ selectedModel.category }}</p></div>
-      </div>
-      <div class="row">
-        <div class="col-3"><p class="my-3">Документ:</p></div>
-        <div class="col-9"><p class="my-3">{{ selectedModel.document }}</p></div>
-      </div>
-      <button (click)="closeFullScreen()">Закрыть</button>
-    </div>
+      <app-description-screen-sysship [(selectedModel)]="selectedModel" [tablename]="'ship_systems'" (deletedModel)="deleteModel($event)"></app-description-screen-sysship>
 </div>

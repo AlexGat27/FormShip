@@ -18,8 +18,12 @@
         </div>
         <div class="descriptionBlock my-3" *ngIf="selectedShipSystem">
           <div class="row">
-            <div class="col-3"><h6 class="my-2">Описание:</h6></div>
+            <div class="col-3"><h6 class="my-2">Название:</h6></div>
             <div class="col-9"><p class="my-2">{{ selectedShipSystem.system_ship.title }}</p></div>
+          </div>
+          <div class="row">
+            <div class="col-3"><h6 class="my-2">Описание:</h6></div>
+            <div class="col-9"><p class="my-2">{{ selectedShipSystem.system_ship.description }}</p></div>
           </div>
           <div class="row">
             <div class="col-3"><h6 class="my-2">Тип:</h6></div>
@@ -59,6 +63,10 @@
           (click)="selectEquipment(equipmentModel)">{{ equipmentModel.equipment.title }}</div>
         </div>
         <div class="descriptionBlock my-3" *ngIf="selectedEquipment">
+          <div class="row">
+            <div class="col-3"><h6 class="my-2">Название:</h6></div>
+            <div class="col-9"><p class="my-2">{{ selectedEquipment.equipment.title }}</p></div>
+          </div>
           <div class="row">
             <div class="col-3"><h6 class="my-2">Описание:</h6></div>
             <div class="col-9"><p class="my-2">{{ selectedEquipment.equipment.description }}</p></div>

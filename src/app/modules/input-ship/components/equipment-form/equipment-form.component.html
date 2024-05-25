@@ -3,18 +3,21 @@
     <form [formGroup]="form" (ngSubmit)="OnSubmit()">
         <div class="mb-3">
           <label for="inputTitle" class="form-label">Название</label>
-          <input type="text" class="form-control" id="inputTitle" aria-describedby="titleHelp" formControlName="title">
+          <input type="text" class="form-control" id="inputTitle" aria-describedby="titleHelp" formControlName="title"
+          [ngClass]="{'invalid': form.get('title').invalid && form.get('title').touched}">
           <div id="titleHelp" class="form-text">Название оборудования, которого нет в списке сохраненных</div>
         </div>
         <div class="mb-3">
           <label for="inputDescription" class="form-label">Описание</label>
-          <input type="text" class="form-control" id="inputDescription" formControlName="description">
+          <input type="text" class="form-control" id="inputDescription" formControlName="description"
+          [ngClass]="{'invalid': form.get('description').invalid && form.get('description').touched}">
         </div>
         <div class="mb-3">
             <label for="inputType" class="form-label">Тип</label>
-            <input type="text" class="form-control" id="inputType" formControlName="type">
+            <input type="text" class="form-control" id="inputType" formControlName="type"
+            [ngClass]="{'invalid': form.get('type').invalid && form.get('type').touched}">
         </div>
-        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid || form.disabled">Сохранить</button>
     </form>
     <div class="my-4">
       <h2>Существующее оборудование</h2>

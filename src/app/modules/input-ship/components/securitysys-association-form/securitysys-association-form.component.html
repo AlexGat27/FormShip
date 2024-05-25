@@ -5,31 +5,40 @@
             <div class="col">
                 <div class="mb-3">
                     <label for="selectSecurity" class="form-label">Выберите показатель защищенности</label>
-                    <select class="form-select" id="selectSecurity" formControlName="security_indicator">
+                    <select class="form-select" id="selectSecurity" formControlName="security_indicator"
+                    [ngClass]="{'invalid': form.get('security_indicator').invalid && form.get('security_indicator').touched}">
                         <option *ngFor="let title of securityIndicatorTitles" [value]="title">{{ title }}</option>
                     </select>
                 </div>
             </div>
             <div class="col">
                 <div class="mb-3">
-                    <label for="selectShipSystem" class="form-label">Выберите систему корабля</label> class="my-3"
-                    <select class="form-select" id="selectShipSystem" formControlName="ship_system">
+                    <label for="selectShipSystem" class="form-label">Выберите систему корабля</label>
+                    <select class="form-select" id="selectShipSystem" formControlName="ship_system"
+                    [ngClass]="{'invalid': form.get('ship_system').invalid && form.get('ship_system').touched}">
                         <option *ngFor="let title of shipSystemTitles" [value]="title">{{ title }}</option>
                     </select>
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid || form.disabled">Сохранить</button>
     </form>
     <div class="association-list">
         <h2>Список ассоциаций:</h2>
         <div class="associations-container">
+            <div class="row w-100">
+                <div class="col-4 h5 text-center">Показатели</div>
+                <div class="col-4 offset-4 h5 text-center">Системы кораблей</div>
+            </div>
             <div *ngFor="let association of associations" class="row w-100 align-items-center mb-2">
-                <div class="model-block col" (click)="openFullScreen(association.model1)">{{ association.model1.title }}</div>
-                <hr class="w-25 m-0"/>
-                <div class="model-block col" (click)="openFullScreen(association.model2)">{{ association.model2.title }}</div>
+                <div class="model-block col-4 p-0" (click)="openFullScreen(association.model1)">{{ association.model1.title }}</div>
+                <div class="col-1 p-0"><hr class="w-100 m-0"/></div>
+                <div class="col-2 p-0"><button class="btn btn-danger w-100" (click)="deleteAssociation(association.id)">Удалить</button></div>
+                <div class="col-1 p-0"><hr class="w-100 m-0"/></div>
+                <div class="model-block col-4 p-0" (click)="openFullScreen(association.model2)">{{ association.model2.title }}</div>
             </div>
         </div>
     </div>
-    <app-description-screen [selectedModel]="selectedModel"></app-description-screen>
+    <app-description-screen [(selectedModel)]="selectedSecurityModel"></app-description-screen>
+    <app-description-screen-sysship [(selectedModel)]="selectedShipSystemModel"></app-description-screen-sysship>
 </div>

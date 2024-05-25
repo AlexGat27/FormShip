@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ShipmodelService } from '../../../../core/services/shipmodel.service';
 import { Subscription } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Association, Model } from '../../../../core/interfaces/models.interface';
+import { Association, Model, ShipSystemModel } from '../../../../core/interfaces/models.interface';
 
 @Component({
   selector: 'app-securitysys-association-form',
@@ -17,7 +17,8 @@ export class SecuritysysAssociationFormComponent {
   securityIndicatorTitles: string[];
   shipSystemTitles: string[];
   associations: Association[];
-  selectedModel: Model;
+  selectedSecurityModel: Model;
+  selectedShipSystemModel: ShipSystemModel;
   constructor(private shipModelService: ShipmodelService, private snackBar: MatSnackBar){}
 
   ngOnInit(): void {
@@ -64,11 +65,34 @@ export class SecuritysysAssociationFormComponent {
       }
     );
   }
-  openFullScreen(model: Model) {
-    this.selectedModel = model;
+  openFullScreen(model) {
+    if (model.category) {
+      this.selectedShipSystemModel = model;
+    } else {
+      this.selectedSecurityModel = model;
+    }
   }
-
-  closeFullScreen() {
-    this.selectedModel = null;
+  deleteAssociation(id: number){
+    this.shipModelService.DeleteModel(`api/v1/deleteModel?id=${id}&tablename=${'system_and_indicators'}`)
+    .subscribe(response => {
+      console.log(response);
+      this.associations = this.associations.filter(association => association.id != id);
+      this.snackBar.open('Связь успешно удалена', 'OK', {
+        duration: 3000 // Длительность отображения всплывающего окна в миллисекундах
+      });
+    }, error => {
+      let message = ''
+      switch(error.status){
+        case 404:
+          message = "Ошибка. Связь не найдена";
+          break;
+        default:
+          message = "Неизвестная ошибка сервера";
+          break;
+      }
+      this.snackBar.open(message, 'OK', {
+        duration: 3000 // Длительность отображения всплывающего окна в миллисекундах
+      });
+    })
   }
 }

@@ -20,9 +20,9 @@ export class EquipmentFormComponent {
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      title: new FormControl(null, [Validators.required]),
-      description: new FormControl(null, [Validators.required]),
-      type: new FormControl(null, [Validators.required]),
+      title: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
+      description: new FormControl(null, [Validators.required, Validators.maxLength(150)]),
+      type: new FormControl(null, [Validators.required, Validators.maxLength(25)]),
       ship_system: new FormControl(null, [Validators.required])
     })
     this.getModels().subscribe();

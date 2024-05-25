@@ -7,10 +7,18 @@
       <div class="col-3"><p class="my-3">Описание:</p></div>
       <div class="col-9"><p class="my-3">{{ selectedModel.description }}</p></div>
     </div>
-    <div class="row" *ngIf="selectedModel.type">
+    <div class="row">
       <div class="col-3"><p class="my-3">Тип:</p></div>
       <div class="col-9"><p class="my-3">{{ selectedModel.type }}</p></div>
     </div>
+    <div class="row">
+        <div class="col-3"><p class="my-3">Категория:</p></div>
+        <div class="col-9"><p class="my-3">{{ selectedModel.category }}</p></div>
+      </div>
+      <div class="row">
+        <div class="col-3"><p class="my-3">Документ:</p></div>
+        <div class="col-9"><p class="my-3">{{ selectedModel.document }}</p></div>
+      </div>
     <div class="buttons">
       <button (click)="closeFullScreen()">Закрыть</button>
       <button (click)="deleteModel()" *ngIf="tablename">Удалить модель</button>
