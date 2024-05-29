@@ -1,0 +1,39 @@
+.association-list {
+  margin-top: 20px;
+}
+
+.associations-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.association {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.model-blocks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.model-block {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  text-align: center;
+  cursor: pointer;
+}
+
+.invalid{
+  border-color: red;
+}
+
+.disabledBtn{
+  background-color: grey;
+  border-color: grey;
+}

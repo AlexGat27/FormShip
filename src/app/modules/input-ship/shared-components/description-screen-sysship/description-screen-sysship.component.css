@@ -1,0 +1,46 @@
+.description-screen {
+    position: fixed;
+    width: 70%;
+    height: 70%;
+    top: 15%;
+    left: 15%;
+    background-color: rgba(0, 28, 53, 0.9);
+    border-radius: 20px;
+    color: white;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: auto;
+  }
+  .description-screen .row{
+    border-bottom: 2px solid white;
+  }
+  
+  .description-screen h2 {
+    font-size: 24px;
+    margin-bottom: 5%;;
+  }
+  
+  .description-screen p {
+    font-size: 18px;
+    overflow-y: auto; /* Добавляем возможность прокрутки по вертикали */
+    max-height: 100px; /* Указываем максимальную высоту контейнера описания */
+    overflow-wrap: break-word;
+  }
+  
+  .description-screen .buttons {
+    position: absolute;
+    bottom: 20px; /* регулируйте это значение, чтобы изменить вертикальное расположение кнопки */
+    left: 50%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    transform: translateX(-50%);
+    width: 50%;
+  }
+  .description-screen button{
+    background-color: #fff;
+    color: #000;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }

@@ -1,0 +1,45 @@
+<div class="security-sys-form">
+    <h1 class="display-5 mb-5">Ассоциация системы корабля и оборудования</h1>
+    <form [formGroup]="form" (ngSubmit)="OnSubmit()">
+        <div class="row">
+            <div class="col">
+                <div class="mb-3">
+                    <label for="selectEquipment" class="form-label">Выберите оборудование</label>
+                    <select class="form-select" id="selectEquipment" formControlName="equipment"
+                    [ngClass]="{'invalid': form.get('equipment').invalid && form.get('equipment').touched}">
+                        <option *ngFor="let title of equipmentTitles" [value]="title">{{ title }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="mb-3">
+                    <label for="selectShipSystem" class="form-label">Выберите систему корабля</label>
+                    <select class="form-select" id="selectShipSystem" formControlName="ship_system"
+                    [ngClass]="{'invalid': form.get('ship_system').invalid && form.get('ship_system').touched}">
+                        <option *ngFor="let title of shipSystemTitles" [value]="title">{{ title }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid || form.disabled">Сохранить</button>
+    </form>
+    <div class="association-list">
+        <h2>Список ассоциаций:</h2>
+        <div class="associations-container">
+            <div class="row w-100">
+                <div class="col h5 text-center">Оборудование</div>
+                <div class="w-25"></div>
+                <div class="col h5 text-center">Системы кораблей</div>
+            </div>
+            <div *ngFor="let association of associations" class="row w-100 align-items-center mb-2">
+                <div class="model-block col-4 p-0" (click)="openFullScreen(association.model1)">{{ association.model1.title }}</div>
+                <div class="col-1 p-0"><hr class="w-100 m-0"/></div>
+                <div class="col-2 p-0"><button class="btn btn-danger w-100" (click)="deleteAssociation(association.id)">Удалить</button></div>
+                <div class="col-1 p-0"><hr class="w-100 m-0"/></div>
+                <div class="model-block col-4 p-0" (click)="openFullScreen(association.model2)">{{ association.model2.title }}</div>
+            </div>
+        </div>
+    </div>
+    <app-description-screen [(selectedModel)]="selectedEquipmentModel"></app-description-screen>
+    <app-description-screen-sysship [(selectedModel)]="selectedShipSystemModel"></app-description-screen-sysship>
+</div>

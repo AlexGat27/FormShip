@@ -1,0 +1,24 @@
+<div class="ship-form">
+    <h1 class="display-3">Корабль</h1>
+    <form [formGroup]="form" (ngSubmit)="OnSubmit()">
+        <div class="mb-3">
+          <label for="inputTitle" class="form-label">Название</label>
+          <input type="text" class="form-control" id="inputTitle" aria-describedby="titleHelp" formControlName="title"
+          [ngClass]="{'invalid': form.get('title').invalid && form.get('title').touched}">
+          <div id="titleHelp" class="form-text">Название корабля, которого нет в списке сохраненных</div>
+        </div>
+        <div class="mb-3">
+          <label for="inputDescription" class="form-label">Описание</label>
+          <input type="text" class="form-control" id="inputDescription" formControlName="description"
+          [ngClass]="{'invalid': form.get('description').invalid && form.get('description').touched}">
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid || form.disabled">Сохранить</button>
+    </form>
+    <div class="my-4">
+      <h2>Существующие корабли</h2>
+      <div class="model-blocks">
+        <div *ngFor="let model of models" class="model-block" (click)="openFullScreen(model)">{{ model.title }}</div>
+      </div>
+    </div>
+    <app-description-screen [(selectedModel)]="selectedModel" [tablename]="'ships'" (deletedModel)="deleteModel($event)"></app-description-screen>
+</div>
