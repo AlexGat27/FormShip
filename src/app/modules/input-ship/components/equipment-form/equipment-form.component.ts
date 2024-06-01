@@ -23,7 +23,6 @@ export class EquipmentFormComponent {
       title: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
       description: new FormControl(null, [Validators.required, Validators.maxLength(150)]),
       type: new FormControl(null, [Validators.required, Validators.maxLength(25)]),
-      ship_system: new FormControl(null, [Validators.required])
     })
     this.getModels().subscribe();
     this.responseError = false;
